@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"net"
@@ -12,10 +13,11 @@ import (
 )
 
 type Config struct {
-	LogLevel       string  `yaml:"logLevel"`
-	LoopDurationSecond   int64     `yaml:"loopDurationSecond"`
-	LoseRatioLimit float64 `yaml:"loseRatioLimit"`
-	Servers        []string
+	LogLevel           string        `yaml:"logLevel"`
+	LoopDurationSecond time.Duration `yaml:"loopDurationSecond"`
+	LoseRatioLimit     float64       `yaml:"loseRatioLimit"`
+	Servers            []string
+	UserLimit          int `yaml:"userLimit"`
 }
 
 var config Config
@@ -23,7 +25,10 @@ var count chan int
 var expectConnCount int
 
 func init() {
-	data, err := ioutil.ReadFile("config.yaml")
+	var configFile string
+	flag.StringVar(&configFile, "c", "config.yaml", "configFile")
+	flag.Parse()
+	data, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		panic(err)
 	}
@@ -76,14 +81,19 @@ func newConn(addr string) {
 
 }
 
+func continueConn() bool {
+	return config.UserLimit == 0 || len(count) < config.UserLimit
+}
+
 func main() {
 	// start tcp connection loop
 	for _, v := range config.Servers {
 		go func(host string) {
 			for {
-
-				go newConn(host + ":80")
-				time.Sleep(time.Duration(config.LoopDurationSecond * int64(time.Second)))
+				if continueConn() {
+					go newConn(host + ":80")
+				}
+				time.Sleep(config.LoopDurationSecond * time.Second)
 			}
 		}(v)
 	}
@@ -91,8 +101,10 @@ func main() {
 	// estimate the limit
 	go func() {
 		for {
-			time.Sleep(time.Duration(config.LoopDurationSecond * int64(time.Second)))
-			expectConnCount = expectConnCount + len(config.Servers)
+			time.Sleep(config.LoopDurationSecond * time.Second)
+			if continueConn() {
+				expectConnCount = expectConnCount + len(config.Servers)
+			}
 			actualConnCount := len(count)
 			loseRatio := float64(expectConnCount-actualConnCount) / float64(expectConnCount)
 			if loseRatio >= config.LoseRatioLimit {

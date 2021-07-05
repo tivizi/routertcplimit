@@ -1,6 +1,7 @@
 logLevel: info
 loopDurationSecond: 2
 loseRatioLimit: 0.25
+userLimit: 1000
 servers:
   - www.baidu.com
   - qq.com
