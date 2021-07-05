@@ -13,6 +13,7 @@ import (
 
 type Config struct {
 	LogLevel       string  `yaml:"logLevel"`
+	LoopDurationSecond   int64     `yaml:"loopDurationSecond"`
 	LoseRatioLimit float64 `yaml:"loseRatioLimit"`
 	Servers        []string
 }
@@ -82,7 +83,7 @@ func main() {
 			for {
 
 				go newConn(host + ":80")
-				time.Sleep(1 * time.Second)
+				time.Sleep(time.Duration(config.LoopDurationSecond * int64(time.Second)))
 			}
 		}(v)
 	}
@@ -90,7 +91,7 @@ func main() {
 	// estimate the limit
 	go func() {
 		for {
-			time.Sleep(time.Second)
+			time.Sleep(time.Duration(config.LoopDurationSecond * int64(time.Second)))
 			expectConnCount = expectConnCount + len(config.Servers)
 			actualConnCount := len(count)
 			loseRatio := float64(expectConnCount-actualConnCount) / float64(expectConnCount)

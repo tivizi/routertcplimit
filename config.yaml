@@ -1,4 +1,5 @@
 logLevel: info
+loopDurationSecond: 2
 loseRatioLimit: 0.25
 servers:
   - www.baidu.com
@@ -24,7 +25,6 @@ servers:
   - hu60.cn
   - igo.pub
   - www.runoob.com
-  - golang.google.cn
   - vip.com
   - suning.com
   - www.jianshu.com
@@ -55,7 +55,6 @@ servers:
   - www.dianping.com
   - tg.602.com
   - www.boc.cn
-  - www.abchina.com
   - novel.contentchina.com
   - www.cnstock.com
   - www.sitestar.cn
@@ -104,14 +103,11 @@ servers:
   - www.xinhuanet.com
   - www.cndns.com
   - www.dnspod.cn
-  - cloud.baidu.com
   - fanyi.qq.com
-  - fanyi.baidu.com
   - 123.sogou.com
   - y.code.17tanwan.com
   - m.ce.cn
   - www.xiaomiyoupin.com
-  - www.douban.com
   - hd.oppo.com
   - lego.mgtv.com
   - www.msn.cn
@@ -133,15 +129,51 @@ servers:
   - liujianjun.net
   - www.shifeiti.cn
   - xuthus.cc
-  - www.niubai.net
   - eblog.ink
   - wanbk.net
-  - blog.chenplus.com
   - hjtxt.club
   - lovefc.cn
   - wapjin.com
-  - waphdw.com
   - ii.do
+  - guozhivip.com
+  - www.endata.com.cn
+  - maoyan.com
+  - www.vmovier.com
+  - she.xitek.com
+  - dig.chouti.com
+  - user.guancha.cn
+  - bbs.hupu.com
+  - www.pearvideo.com
+  - www.acfun.cn
+  - xueqiu.com
+  - 36kr.com
+  - www.forbeschina.com
+  - www.imdb.com
+  - www.poco.cn
+  - music.migu.cn
+  - 500px.com.cn
+  - www.cnu.cc
+  - photos.oneplus.com
+  - tuchong.com
+  - photo.fengniao.com
+  - bcy.net
+  - huaban.com
+  - top10.ui.cn
+  - www.ycyui.com
+  - www.zhisheji.com
+  - gracg.com
+  - uiiiuiii.com
+  - product.pconline.com.cn
+  - phat.jd.com
+  - img30.360buyimg.com
+  - bang.dangdang.com
+  - www.taptap.com
+  - www.toubang.tv
+  - www.kuaikanmanhua.com
+  - www.dm5.com
+  - www.iimedia.cn
+  - report.amap.com
+  - statics.oneplus.cn
 
 
 
